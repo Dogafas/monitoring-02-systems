@@ -276,3 +276,69 @@ RAM закончилась → сервис падает → SLI «доступ�
 > Push — стандарт для задач и нестандартных окружений.
 
 ## Задание 6
+
+> Pull vs Push: классификация систем
+
+---
+
+**Pull‑модель**
+
+Сервер мониторинга сам опрашивает таргеты.
+
+1. Prometheus — pull, по умолчанию использует `pull‑модель`:
+
+* опрашивает /metrics
+* использует service discovery
+* push возможен только через Pushgateway (это костыль, а не основная модель)
+
+2. Zabbix — pull + push (гибридная система):
+
+* Zabbix server → pull с Zabbix agent (active/passive)
+* Zabbix agent → push в active‑режиме
+* Zabbix sender → push
+* Trapper items → push
+
+3. Nagios — pull + push (гибрид)
+   Nagios Core исторически pull:
+
+* сервер запускает плагины и опрашивает хосты
+  Но:
+* NRDP/NSCA позволяют push
+* NRPE — удалённый агент, но всё равно инициатор — сервер
+  Итого: гибрид, но доминирует pull.
+
+---
+
+**Push‑модель**
+
+Таргеты отправляют метрики сами.
+
+4. TICK (Telegraf + InfluxDB + Chronograf + Kapacitor) — push
+   TICK‑стек — классическая push‑модель:
+
+* Telegraf → push в InfluxDB
+* Нет pull‑механизма
+* Подходит для edge‑нод, IoT, NAT
+
+5. VictoriaMetrics — push + pull (гибрид)
+   VictoriaMetrics поддерживает оба варианта:
+
+* pull: совместима с Prometheus scrape
+* push: принимает данные по:
+  * Influx line protocol
+  * Graphite
+  * OpenTSDB
+  * Prometheus remote_write
+
+Это одна из самых гибких систем.
+
+**Итоговая таблица**
+
+
+| Система               | Модель | Комментарий                                        |
+| ------------------------------ | -------------- | --------------------------------------------------------------- |
+| **Prometheus**               | pull         | Push только через Pushgateway                      |
+| **TICK (Telegraf/InfluxDB)** | push         | Чистый push‑pipeline                                   |
+| **Zabbix**                   | гибрид | Active agent + sender = push; passive agent = pull            |
+| **VictoriaMetrics**          | гибрид | Поддерживает и pull, и push                     |
+| **Nagios**                   | гибрид | Основной pull, но есть push‑механизмы |
