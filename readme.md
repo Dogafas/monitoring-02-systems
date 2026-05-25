@@ -291,14 +291,14 @@ RAM закончилась → сервис падает → SLI «доступ�
 * использует service discovery
 * push возможен только через Pushgateway (это костыль, а не основная модель)
 
-2. Zabbix — pull + push (гибридная система):
+1. Zabbix — pull + push (гибридная система):
 
 * Zabbix server → pull с Zabbix agent (active/passive)
 * Zabbix agent → push в active‑режиме
 * Zabbix sender → push
 * Trapper items → push
 
-3. Nagios — pull + push (гибрид)
+1. Nagios — pull + push (гибрид)
    Nagios Core исторически pull:
 
 * сервер запускает плагины и опрашивает хосты
@@ -313,14 +313,14 @@ RAM закончилась → сервис падает → SLI «доступ�
 
 Таргеты отправляют метрики сами.
 
-4. TICK (Telegraf + InfluxDB + Chronograf + Kapacitor) — push
+1. TICK (Telegraf + InfluxDB + Chronograf + Kapacitor) — push
    TICK‑стек — классическая push‑модель:
 
 * Telegraf → push в InfluxDB
 * Нет pull‑механизма
 * Подходит для edge‑нод, IoT, NAT
 
-5. VictoriaMetrics — push + pull (гибрид)
+1. VictoriaMetrics — push + pull (гибрид)
    VictoriaMetrics поддерживает оба варианта:
 
 * pull: совместима с Prometheus scrape
@@ -333,7 +333,6 @@ RAM закончилась → сервис падает → SLI «доступ�
 Это одна из самых гибких систем.
 
 **Итоговая таблица**
-
 
 | Система               | Модель | Комментарий                                        |
 | ------------------------------ | -------------- | --------------------------------------------------------------- |
@@ -351,3 +350,6 @@ RAM закончилась → сервис падает → SLI «доступ�
 
 Скриншот с отображением метрик утилизации CPU из веб‑интерфейса ![alt text](image-1.png))
 
+## Задание 9
+
+Скриншот со списком `measurments` ![alt text](image-2.png)
