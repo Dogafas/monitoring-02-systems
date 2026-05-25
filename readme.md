@@ -342,3 +342,12 @@ RAM закончилась → сервис падает → SLI «доступ�
 | **Zabbix**                   | гибрид | Active agent + sender = push; passive agent = pull            |
 | **VictoriaMetrics**          | гибрид | Поддерживает и pull, и push                     |
 | **Nagios**                   | гибрид | Основной pull, но есть push‑механизмы |
+
+## Задание 7
+
+Скриншот веб‑интерфейса Chronograf ![alt text](image.png)
+
+## Задание 8
+
+Скриншот с отображением метрик утилизации CPU из веб‑интерфейса ![alt text](image-1.png))
+
